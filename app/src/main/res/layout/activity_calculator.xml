@@ -1,0 +1,284 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_top_margin"
+    android:paddingBottom="@dimen/activity_bottom_margin" tools:context=".CalculatorActivity"
+    android:background="@drawable/background">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/doublerToggleButton"
+            android:layout_weight="1"
+            android:onClick="doublerToggleButton_Click"
+            android:layout_margin="3dp"
+            android:src="@drawable/doubler_off"
+            android:background="@drawable/button"
+            android:contentDescription="@string/doubler" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/revaluationToggleButton"
+            android:longClickable="false"
+            android:layout_weight="1"
+            android:onClick="revaluationToggleButton_Click"
+            android:background="@drawable/button"
+            android:src="@drawable/revaluation_off"
+            android:layout_margin="3dp"
+            android:contentDescription="@string/revaluation_marker" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/greyButton"
+            android:layout_weight="1"
+            android:onClick="greyButton_Click"
+            android:src="@drawable/grey"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            android:contentDescription="@string/grey" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/brownButton"
+            android:layout_weight="1"
+            android:onClick="brownButton_Click"
+            android:src="@drawable/brown"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            android:contentDescription="@string/brown" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/beigeButton"
+            android:layout_weight="1"
+            android:onClick="beigeButton_Click"
+            android:src="@drawable/beige"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            android:contentDescription="@string/beige" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/whiteButton"
+            android:layout_weight="1"
+            android:onClick="whiteButton_Click"
+            android:src="@drawable/white"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            android:contentDescription="@string/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout3">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/one"
+            android:id="@+id/oneButton"
+            android:layout_weight="1"
+            android:onClick="oneButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/two"
+            android:id="@+id/twoButton"
+            android:layout_weight="1"
+            android:onClick="twoButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/three"
+            android:id="@+id/threeButton"
+            android:layout_weight="1"
+            android:onClick="threeButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout4">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/four"
+            android:id="@+id/fourButton"
+            android:layout_weight="1"
+            android:onClick="fourButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/five"
+            android:id="@+id/fiveButton"
+            android:layout_weight="1"
+            android:onClick="fiveButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/ten"
+            android:id="@+id/tenButton"
+            android:layout_weight="1"
+            android:onClick="tenButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout5">
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="@string/plus_minus"
+            android:id="@+id/anyButton"
+            android:layout_weight="1"
+            android:onClick="anyButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/industryButton"
+            android:layout_weight="1"
+            android:onClick="industryButton_Click"
+            android:src="@drawable/industry"
+            android:layout_margin="3dp"
+            android:background="@drawable/button"
+            android:contentDescription="@string/industry" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout5"
+        android:id="@+id/scorePanel"
+        android:background="@drawable/score_panel"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/score"
+                android:id="@+id/scoreLabel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/zero"
+                android:id="@+id/scoreValue"
+                android:layout_toRightOf="@+id/scoreLabel"
+                android:layout_toEndOf="@+id/scoreLabel"
+                android:layout_marginLeft="6dp"
+                android:layout_marginStart="6dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear"
+        android:id="@+id/clearButton"
+        android:layout_below="@+id/scorePanel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp"
+        android:onClick="clearButton_Click"
+        android:layout_margin="3dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" />
+            </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
