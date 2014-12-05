@@ -1,0 +1,2 @@
+- Left/right hand mode
+    - Gather data on which buttons are pressed most.

@@ -9,7 +9,8 @@
     <string name="four">4</string>
     <string name="five">5</string>
     <string name="ten">10</string>
-    <string name="plus_minus">+/-</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
     <string name="score">Score:</string>
     <string name="zero">0</string>
     <string name="clear">Clear</string>
@@ -41,4 +42,7 @@
     <string name="beige">Beige</string>
     <string name="white">White</string>
     <string name="industry">Industry</string>
+    <string name="amount_to_subtract">Amount To Subtract:</string>
+    <string name="amount_to_add">Amount To Add:</string>
+    <string name="industry_amount">Industry Amount:</string>
 </resources>

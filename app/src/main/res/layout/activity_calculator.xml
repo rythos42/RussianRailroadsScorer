@@ -202,10 +202,20 @@
         <Button
             android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:text="@string/plus_minus"
-            android:id="@+id/anyButton"
+            android:text="@string/plus_sign"
+            android:id="@+id/plusButton"
             android:layout_weight="1"
-            android:onClick="anyButton_Click"
+            android:onClick="plusButton_Click"
+            android:layout_margin="3dp"
+            android:background="@drawable/button" />
+
+        <Button
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="@string/minus_sign"
+            android:id="@+id/minusButton"
+            android:layout_weight="1"
+            android:onClick="minusButton_Click"
             android:layout_margin="3dp"
             android:background="@drawable/button" />
 

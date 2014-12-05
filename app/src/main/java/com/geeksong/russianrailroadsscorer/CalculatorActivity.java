@@ -111,26 +111,37 @@ public class CalculatorActivity extends Activity {
         updateScoreDisplay();
     }
 
-    public void anyButton_Click(View view) {
+    private void showNumberPickerDialog(final boolean addToDisplayedScore) {
         final NumberPicker numberPicker = (NumberPicker) getLayoutInflater().inflate(R.layout.number_picker_dialog_layout, null);
         numberPicker.setMaxValue(100);
         numberPicker.setMinValue(1);
         new AlertDialog.Builder(this)
-            .setTitle("Amount To Add:")
-            .setView(numberPicker)
-            .setPositiveButton(R.string.dialog_ok,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            addToDisplayedScore(numberPicker.getValue());
-                        }
-                    })
-            .setNegativeButton(R.string.dialog_cancel, null)
-            .show();
+                .setTitle(getString(R.string.amount_to_add))
+                .setView(numberPicker)
+                .setPositiveButton(R.string.dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if(addToDisplayedScore)
+                                    addToDisplayedScore(numberPicker.getValue());
+                                else
+                                    addToDisplayedScore(-1 * numberPicker.getValue());
+                            }
+                        })
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show();
+    }
+
+    public void plusButton_Click(View view) {
+        showNumberPickerDialog(true);
+    }
+
+    public void minusButton_Click(View view) {
+        showNumberPickerDialog(false);
     }
 
     public void industryButton_Click(View view) {
         new AlertDialog.Builder(this)
-                .setTitle("Industry Amount:")
+                .setTitle(getString(R.string.industry_amount))
                 .setItems(R.array.industry_amounts, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String[] industryAmounts = getResources().getStringArray(R.array.industry_amounts);
