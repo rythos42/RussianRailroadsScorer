@@ -1,2 +1,4 @@
 - Left/right hand mode
     - Gather data on which buttons are pressed most.
+
+By Harveyqs (Own work) [CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons

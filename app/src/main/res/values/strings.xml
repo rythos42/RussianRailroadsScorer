@@ -14,10 +14,14 @@
     <string name="score">Score:</string>
     <string name="zero">0</string>
     <string name="clear">Clear</string>
+    <string name="amount_to_subtract">Amount To Subtract:</string>
+    <string name="amount_to_add">Amount To Add:</string>
+    <string name="industry_amount">Industry Amount:</string>
+
 
     <!--
     These are tossed into Integer.parseInt, in CalculatorActivity.industryButton_Click.
-    If/when they get translated, be sure to ensure that works properly - may need a mapping table.
+    If they get translated, be sure to ensure that works properly - may need a mapping table.
 
     The resource numbers above are not treated in the same way, and don't need modification.
     -->
@@ -42,7 +46,4 @@
     <string name="beige">Beige</string>
     <string name="white">White</string>
     <string name="industry">Industry</string>
-    <string name="amount_to_subtract">Amount To Subtract:</string>
-    <string name="amount_to_add">Amount To Add:</string>
-    <string name="industry_amount">Industry Amount:</string>
 </resources>
