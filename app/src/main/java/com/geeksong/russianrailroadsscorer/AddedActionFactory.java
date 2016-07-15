@@ -38,7 +38,7 @@ public class AddedActionFactory {
         return -1;
     }
 
-    private static Drawable createTrackDrawable(ScoreType type, boolean isDoubled, boolean usingRevaluationMarker) {
+    private static Drawable createTrackDrawable(ScoreType type, boolean isDoubled, boolean usingRevaluationMarker, boolean isUsingGermanRevaluationMarker) {
         ArrayList<Drawable> drawableList = new ArrayList<Drawable>();
         int trackDrawableId = getBaseTrackId(type);
         BitmapDrawable trackDrawable = (BitmapDrawable) resources.getDrawable(trackDrawableId);
@@ -56,21 +56,26 @@ public class AddedActionFactory {
 
         if(usingRevaluationMarker) {
             BitmapDrawable revaluationSmall = (BitmapDrawable) resources.getDrawable(R.drawable.revaluation_small);
-            revaluationSmall.setGravity(Gravity.LEFT|Gravity.TOP);
+            revaluationSmall.setGravity(Gravity.LEFT | Gravity.TOP);
             revaluationIndex = drawableList.size();
             drawableList.add(revaluationSmall);
+        } else if(isUsingGermanRevaluationMarker) {
+            BitmapDrawable germanRevaluationSmall = (BitmapDrawable) resources.getDrawable(R.drawable.german_revaluation_small);
+            germanRevaluationSmall.setGravity(Gravity.LEFT | Gravity.TOP);
+            revaluationIndex = drawableList.size();
+            drawableList.add(germanRevaluationSmall);
         }
 
         LayerDrawable layerDrawable = new LayerDrawable(drawableList.toArray(new Drawable[drawableList.size()]));
 
         // Move the revaluation marker over if both are used.
-        if(isDoubled && usingRevaluationMarker)
+        if(isDoubled && (usingRevaluationMarker || isUsingGermanRevaluationMarker))
             layerDrawable.setLayerInset(revaluationIndex, doublerWidth, 0, 0, 0);
 
         return layerDrawable;
     }
 
-    public static View create(int add, ScoreType type, boolean isDoubled, boolean usingRevaluationMarker) {
+    public static View create(int add, ScoreType type, boolean isDoubled, boolean usingRevaluationMarker, boolean isUsingGermanRevaluationMarker) {
         final View addedAction = inflater.inflate(R.layout.added_action, null);
 
         TextView plusMinusText = (TextView) addedAction.findViewById(R.id.plusMinusText);
@@ -90,7 +95,7 @@ public class AddedActionFactory {
             case BrownTrack:
             case BeigeTrack:
             case WhiteTrack:
-                image.setImageDrawable(createTrackDrawable(type, isDoubled, usingRevaluationMarker));
+                image.setImageDrawable(createTrackDrawable(type, isDoubled, usingRevaluationMarker, isUsingGermanRevaluationMarker));
                 numeric.setVisibility(View.INVISIBLE);
                 break;
 

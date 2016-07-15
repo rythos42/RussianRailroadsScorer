@@ -17,6 +17,7 @@ public class CalculatorActivity extends Activity {
     private int currentScore = 0;
     private boolean isDoubled = false;
     private boolean isUsingRevaluationMarker = false;
+    private boolean isUsingGermanRevaluationMarker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class CalculatorActivity extends Activity {
     }
 
     private void addToHistory(int add, ScoreType type) {
-        View addedAction = AddedActionFactory.create(add, type, isDoubled, isUsingRevaluationMarker);
+        View addedAction = AddedActionFactory.create(add, type, isDoubled, isUsingRevaluationMarker, isUsingGermanRevaluationMarker);
 
         final LinearLayout previousActionsLayout = (LinearLayout) findViewById(R.id.previousActions);
         previousActionsLayout.addView(addedAction);
@@ -76,12 +77,30 @@ public class CalculatorActivity extends Activity {
         ScoreManager.getInstance().setIsUsingRevaluationMarker(isUsingRevaluationMarker);
     }
 
+    private void setIsUsingGermanRevaluationMarker(boolean isUsingGermanRevaluationMarker) {
+        this.isUsingGermanRevaluationMarker = isUsingGermanRevaluationMarker;
+
+        ImageButton button = (ImageButton)findViewById(R.id.germanRevaluationToggleButton);
+        Drawable doublerImage = getResources().getDrawable(isUsingGermanRevaluationMarker? R.drawable.german_revaluation_on : R.drawable.german_revaluation_off);
+        button.setImageDrawable(doublerImage);
+
+        ScoreManager.getInstance().setIsUsingGermanRevaluationMarker(isUsingGermanRevaluationMarker);
+    }
+
     public void doublerToggleButton_Click(View doublerToggleButton) {
         setIsDoubled(!isDoubled);
     }
 
     public void revaluationToggleButton_Click(View revaluationToggleButton) {
+        // Turn off the other marker if it's on
+        setIsUsingGermanRevaluationMarker(false);
         setIsUsingRevaluationMarker(!isUsingRevaluationMarker);
+    }
+
+    public void germanRevaluationToggleButton_Click(View revaluationToggleButton) {
+        // Turn off the other marker if it's on
+        setIsUsingRevaluationMarker(false);
+        setIsUsingGermanRevaluationMarker(!isUsingGermanRevaluationMarker);
     }
 
     public void greyButton_Click(View view) {
@@ -128,6 +147,7 @@ public class CalculatorActivity extends Activity {
         currentScore = 0;
         setIsDoubled(false);
         setIsUsingRevaluationMarker(false);
+        setIsUsingGermanRevaluationMarker(false);
         updateScoreDisplay();
 
         LinearLayout previousActionsLayout = (LinearLayout) findViewById(R.id.previousActions);

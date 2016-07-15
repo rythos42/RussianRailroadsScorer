@@ -19,6 +19,10 @@ public class ScoreManager implements IScoreValues {
         currentScoreValues = usingRevaluationMarker ? new RevaluationScoreValues() : new BaseScoreValues();
     }
 
+    public void setIsUsingGermanRevaluationMarker(boolean usingGermanRevaluationMarker) {
+        currentScoreValues = usingGermanRevaluationMarker ? new GermanRevaluationScoreValues() : new BaseScoreValues();
+    }
+
     public void setIsDoubled(boolean isDoubled) {
         multiplier = isDoubled ? 2 : 1;
     }
