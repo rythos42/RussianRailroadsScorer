@@ -3,6 +3,7 @@ package com.geeksong.russianrailroadsscorer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class CalculatorActivity extends Activity {
     private int currentScore = 0;
@@ -194,5 +199,41 @@ public class CalculatorActivity extends Activity {
                 })
                 .setNegativeButton(R.string.dialog_cancel, null)
                 .show();
+    }
+
+    public void randomizeStartBonusCards_Click(View view) {
+        ArrayList<StartBonusCards> startBonusCards = new ArrayList<StartBonusCards>(Arrays.asList(StartBonusCards.values()));
+        Random random = new Random();
+
+        int firstCardIndex = random.nextInt(startBonusCards.size());
+        StartBonusCards firstCard = startBonusCards.get(firstCardIndex);
+        startBonusCards.remove(firstCardIndex);
+
+        int secondCardIndex = random.nextInt(startBonusCards.size());
+        StartBonusCards secondCard = startBonusCards.get(secondCardIndex);
+        startBonusCards.remove(secondCardIndex);
+
+        Resources res = getResources();
+        String[] startBonusCardResources = res.getStringArray(R.array.start_bonus_cards);
+
+        String drawnCards = startBonusCardResources[firstCard.ordinal()] + ", " + startBonusCardResources[secondCard.ordinal()];
+
+        if(firstCard == StartBonusCards.Coal || secondCard == StartBonusCards.Coal) {
+            // draw a third
+            int thirdCardIndex = random.nextInt(startBonusCards.size());
+            StartBonusCards thirdCard = startBonusCards.get(thirdCardIndex);
+            drawnCards += (" (" + res.getString(R.string.if_not_coal) + ": " + startBonusCardResources[thirdCard.ordinal()] + ")");
+        }
+
+        AlertDialog drawnCardsDialog = new AlertDialog.Builder(CalculatorActivity.this).create();
+        drawnCardsDialog.setTitle("Random Start Bonus Cards");
+        drawnCardsDialog.setMessage(drawnCards);
+        drawnCardsDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        drawnCardsDialog.show();
     }
 }

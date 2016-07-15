@@ -47,4 +47,18 @@
     <string name="white">White</string>
     <string name="industry">Industry</string>
     <string name="german_revaluation_marker">German Railroads Revaluation Marker</string>
+    <string name="start_cards">Start Cards</string>
+    <string name="random_start_bonus_cards">Random Start Bonus Cards</string>
+
+    <!--
+    This array is order-sensitive, don't change the order without looking at randomizeStartBonusCards_Click in CalculatorActivity and at StartBonusCards.
+    -->
+    <string-array name="start_bonus_cards">
+        <item>Coin</item>
+        <item>Black Track</item>
+        <item>Industry</item>
+        <item>Doubler</item>
+        <item>Coal</item>
+    </string-array>
+    <string name="if_not_coal">if not Coal</string>
 </resources>

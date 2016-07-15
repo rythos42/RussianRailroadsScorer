@@ -287,17 +287,36 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear"
-                android:id="@+id/clearButton"
-                android:layout_marginTop="26dp"
-                android:onClick="clearButton_Click"
-                android:layout_margin="3dp"
-                android:background="@drawable/button"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear"
+                    android:id="@+id/clearButton"
+                    android:layout_marginTop="26dp"
+                    android:onClick="clearButton_Click"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/button"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_cards"
+                    android:id="@+id/randomizeStartBonusCards"
+                    android:layout_marginTop="26dp"
+                    android:onClick="randomizeStartBonusCards_Click"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/button"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
