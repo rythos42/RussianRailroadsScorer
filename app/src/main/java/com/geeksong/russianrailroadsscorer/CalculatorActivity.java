@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -201,6 +203,17 @@ public class CalculatorActivity extends Activity {
                 .show();
     }
 
+    private int getDrawableIdForStartCard(StartBonusCards card) {
+        switch(card) {
+            case BlackTrack: return R.drawable.black_advance;
+            case Coal: return R.drawable.coal;
+            case Coin: return R.drawable.coin;
+            case Doubler: return R.drawable.doubler_on;
+            case Industry: return R.drawable.industry;
+        }
+        return 0;
+    }
+
     public void randomizeStartBonusCards_Click(View view) {
         ArrayList<StartBonusCards> startBonusCards = new ArrayList<StartBonusCards>(Arrays.asList(StartBonusCards.values()));
         Random random = new Random();
@@ -213,26 +226,24 @@ public class CalculatorActivity extends Activity {
         StartBonusCards secondCard = startBonusCards.get(secondCardIndex);
         startBonusCards.remove(secondCardIndex);
 
-        Resources res = getResources();
-        String[] startBonusCardResources = res.getStringArray(R.array.start_bonus_cards);
+        LayoutInflater factory = LayoutInflater.from(CalculatorActivity.this);
+        final View dialogContent = factory.inflate(R.layout.random_start_bonus_cards_dialog, null);
 
-        String drawnCards = startBonusCardResources[firstCard.ordinal()] + ", " + startBonusCardResources[secondCard.ordinal()];
+        ((ImageView) dialogContent.findViewById(R.id.firstCard)).setImageResource(getDrawableIdForStartCard(firstCard));
+        ((ImageView) dialogContent.findViewById(R.id.secondCard)).setImageResource(getDrawableIdForStartCard(secondCard));
 
         if(firstCard == StartBonusCards.Coal || secondCard == StartBonusCards.Coal) {
             // draw a third
             int thirdCardIndex = random.nextInt(startBonusCards.size());
             StartBonusCards thirdCard = startBonusCards.get(thirdCardIndex);
-            drawnCards += (" (" + res.getString(R.string.if_not_coal) + ": " + startBonusCardResources[thirdCard.ordinal()] + ")");
+            dialogContent.findViewById(R.id.ifNotCoal).setVisibility(View.VISIBLE);
+            ((ImageView) dialogContent.findViewById(R.id.thirdCard)).setImageResource(getDrawableIdForStartCard(thirdCard));
         }
 
         AlertDialog drawnCardsDialog = new AlertDialog.Builder(CalculatorActivity.this).create();
-        drawnCardsDialog.setTitle("Random Start Bonus Cards");
-        drawnCardsDialog.setMessage(drawnCards);
-        drawnCardsDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
+        drawnCardsDialog.setView(dialogContent);
+        drawnCardsDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) { dialog.dismiss(); }
                 });
         drawnCardsDialog.show();
     }
