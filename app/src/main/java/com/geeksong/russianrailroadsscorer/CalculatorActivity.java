@@ -2,10 +2,14 @@ package com.geeksong.russianrailroadsscorer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -14,17 +18,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RemoteViews;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class CalculatorActivity extends Activity {
     private int currentScore = 0;
     private boolean isDoubled = false;
     private boolean isUsingRevaluationMarker = false;
     private boolean isUsingGermanRevaluationMarker = false;
+    private String refreshStartCardsAction = "refresh-start-cards";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class CalculatorActivity extends Activity {
 
         AddedActionFactory.setLayoutInflater(getLayoutInflater());
         AddedActionFactory.setResources(getResources());
+
+        if(getIntent().getAction().equals(refreshStartCardsAction))
+            showRandomStartBonusCards();
     }
 
     private void updateScoreDisplay() {
@@ -214,37 +219,60 @@ public class CalculatorActivity extends Activity {
         return 0;
     }
 
-    public void randomizeStartBonusCards_Click(View view) {
-        ArrayList<StartBonusCards> startBonusCards = new ArrayList<StartBonusCards>(Arrays.asList(StartBonusCards.values()));
-        Random random = new Random();
-
-        int firstCardIndex = random.nextInt(startBonusCards.size());
-        StartBonusCards firstCard = startBonusCards.get(firstCardIndex);
-        startBonusCards.remove(firstCardIndex);
-
-        int secondCardIndex = random.nextInt(startBonusCards.size());
-        StartBonusCards secondCard = startBonusCards.get(secondCardIndex);
-        startBonusCards.remove(secondCardIndex);
-
+    private void showStartBonusCardsDialog(DrawnCards drawnCards) {
         LayoutInflater factory = LayoutInflater.from(CalculatorActivity.this);
         final View dialogContent = factory.inflate(R.layout.random_start_bonus_cards_dialog, null);
+        ((ImageView) dialogContent.findViewById(R.id.firstCard)).setImageResource(getDrawableIdForStartCard(drawnCards.firstCard()));
+        ((ImageView) dialogContent.findViewById(R.id.secondCard)).setImageResource(getDrawableIdForStartCard(drawnCards.secondCard()));
 
-        ((ImageView) dialogContent.findViewById(R.id.firstCard)).setImageResource(getDrawableIdForStartCard(firstCard));
-        ((ImageView) dialogContent.findViewById(R.id.secondCard)).setImageResource(getDrawableIdForStartCard(secondCard));
-
-        if(firstCard == StartBonusCards.Coal || secondCard == StartBonusCards.Coal) {
-            // draw a third
-            int thirdCardIndex = random.nextInt(startBonusCards.size());
-            StartBonusCards thirdCard = startBonusCards.get(thirdCardIndex);
+        if(drawnCards.hasThirdCard()) {
             dialogContent.findViewById(R.id.ifNotCoal).setVisibility(View.VISIBLE);
-            ((ImageView) dialogContent.findViewById(R.id.thirdCard)).setImageResource(getDrawableIdForStartCard(thirdCard));
+            ((ImageView) dialogContent.findViewById(R.id.thirdCard)).setImageResource(getDrawableIdForStartCard(drawnCards.thirdCard()));
+        } else {
+            dialogContent.findViewById(R.id.ifNotCoal).setVisibility(View.GONE);
         }
 
         AlertDialog drawnCardsDialog = new AlertDialog.Builder(CalculatorActivity.this).create();
         drawnCardsDialog.setView(dialogContent);
         drawnCardsDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) { dialog.dismiss(); }
-                });
+            public void onClick(DialogInterface dialog, int which) { dialog.dismiss(); }
+        });
         drawnCardsDialog.show();
+    }
+
+    private void showStartBonusCardsNotification(DrawnCards drawnCards) {
+        Intent openIntent = new Intent(CalculatorActivity.this, CalculatorActivity.class);
+        openIntent.setAction(refreshStartCardsAction);
+        PendingIntent openPendingIntent = PendingIntent.getActivity(this, 0, openIntent, 0);
+
+        RemoteViews notificationView = new RemoteViews(getPackageName(), R.layout.random_start_bonus_cards_notification);
+        notificationView.setImageViewResource(R.id.firstCard, getDrawableIdForStartCard(drawnCards.firstCard()));
+        notificationView.setImageViewResource(R.id.secondCard, getDrawableIdForStartCard(drawnCards.secondCard()));
+        if(drawnCards.hasThirdCard()) {
+            notificationView.setViewVisibility(R.id.ifNotCoal, View.VISIBLE);
+            notificationView.setImageViewResource(R.id.thirdCard, getDrawableIdForStartCard(drawnCards.thirdCard()));
+        } else {
+            notificationView.setViewVisibility(R.id.ifNotCoal, View.GONE);
+        }
+
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+        notification.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        notification.setSmallIcon(R.drawable.white);
+        notification.setContentIntent(openPendingIntent);
+        notification.setContent(notificationView);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        int notificationId = 1;
+        notificationManager.notify(notificationId, notification.build());
+    }
+
+    public void showRandomStartBonusCards() {
+        DrawnCards drawnCards = StartBonusCards.drawTwo();
+        showStartBonusCardsDialog(drawnCards);
+        showStartBonusCardsNotification(drawnCards);
+    }
+
+    public void randomizeStartBonusCards_Click(View view) {
+        showRandomStartBonusCards();
     }
 }
