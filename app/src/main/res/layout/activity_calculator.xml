@@ -295,26 +295,33 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/clear"
-                    android:id="@+id/clearButton"
-                    android:layout_marginTop="26dp"
-                    android:onClick="clearButton_Click"
-                    android:layout_margin="3dp"
+                    android:text="@string/random_bonus"
+                    android:id="@+id/randomizeStartBonusCards"
+                    android:onClick="randomizeStartBonusCards_Click"
                     android:background="@drawable/button"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp" />
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/random_bonus"
-                    android:id="@+id/randomizeStartBonusCards"
-                    android:layout_marginTop="26dp"
-                    android:onClick="randomizeStartBonusCards_Click"
-                    android:layout_margin="3dp"
+                    android:text="@string/clear"
+                    android:id="@+id/clearButton"
+                    android:onClick="clearButton_Click"
                     android:background="@drawable/button"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp" />
+                    android:layout_weight="1"
+                    android:layout_marginRight="3dp" />
+
+                <ImageButton
+                    android:id="@+id/undoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:src="@drawable/ic_backspace_grey600_36dp"
+                    android:onClick="undoButton_Click"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    />
 
             </LinearLayout>
         </LinearLayout>

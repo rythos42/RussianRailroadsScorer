@@ -50,4 +50,6 @@
     <string name="random_bonus">Random Bonus</string>
     <string name="random_start_bonus_cards">Random Start Bonus Cards</string>
     <string name="if_not_coal">if not Coal</string>
+    <string name="undo">Undo</string>
+    <string name="notification_channel_name">RussianRailroadsScorer</string>
 </resources>
